@@ -1,6 +1,6 @@
-import get_info_func from './get_info'
-import db_func from './db'
-import file_func from './file'
+import * as get_info_func from './getInfo'
+import * as db_func from './db'
+import * as file_func from './file'
 
 export default () => {
     const func = Object.assign({}, get_info_func, db_func, file_func)

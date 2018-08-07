@@ -5,7 +5,7 @@ import Rule from './rule'
 import Send from './send'
 import Auth from './auth'
 import Log from './log'
-import Func from './func'
+import TGlobal from './global'
 
 export default app => {
     //缓存拦截器
@@ -29,7 +29,7 @@ export default app => {
     app.use(Send())
 
     //方法封装
-    app.use(Func())
+    app.use(TGlobal())
 
     //权限中间件
     app.use(Auth())
@@ -45,11 +45,11 @@ export default app => {
     Rule({
         app,
         rules: [{
-                path: path.join(__dirname, '../controller/admin'),
+                path: path.join(__dirname, '../controller'),
                 name: 'admin'
             },
             {
-                path: path.join(__dirname, '../controller/client'),
+                path: path.join(__dirname, '../controller'),
                 name: 'client'
             }
         ]

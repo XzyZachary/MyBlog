@@ -1,8 +1,8 @@
-import blogModel from '../../models/blog'
+import blogModel from '../models/blog'
 import path from 'path'
 import marked from 'marked'
 
-c.setOptions({
+marked.setOptions({
     renderer: new marked.Renderer(),
     gfm: true,
     tables: true,

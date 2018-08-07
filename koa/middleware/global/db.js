@@ -23,7 +23,7 @@ export const add = (model, conditions) => {
  */
 
 export const update = (model, conditions, update, options) => {
-    return new Promist((resolve, reject) => {
+    return new Promise((resolve, reject) => {
         model.update(conditions, update, options, (err, res) => {
             if (err) {
                 console.error('Error', JSON.stringify(err));
@@ -71,7 +71,7 @@ export const find = (model, conditions, fields, options = {}) => {
     } : options.sort
     delete options.sort
 
-    return new Promist((resolve, reject) => {
+    return new Promise((resolve, reject) => {
         model.find(conditions, field, options, (err, res) => {
             if (err) {
                 console.error('Error', JSON.stringify(err));

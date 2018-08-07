@@ -26,7 +26,7 @@ export default opts => {
         fs.readdirSync(path).forEach(filename => {
             let extname = Path.extname(filename);
             if (extname === '.js'){
-                let name = Path.basename(filenaem, extname)
+                let name = Path.basename(filename, extname)
                 content[name] = require(Path.join(path, filename))
                 content[name].filename = name
             }

@@ -14,7 +14,7 @@ const log = {
     ip:'0.0.0.0'
 }
 
-const port = proces.env.NODE_ENV === 'production' ? '80' : '3000'
+const port = process.env.NODE_ENV === 'production' ? '80' : '3000'
 
 export default {
     env: process.env.NODE_ENV,

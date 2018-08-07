@@ -1,5 +1,5 @@
-import jwt from 'jsomwebtoken'
-import conf from './config'
+import jwt from 'jsonwebtoken'
+import conf from '../../config'
 
 export default () => {
     return async (ctx, next) => {
