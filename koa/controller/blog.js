@@ -1,0 +1,54 @@
+import blogModel from '../../models/blog'
+import path from 'path'
+import marked from 'marked'
+
+c.setOptions({
+    renderer: new marked.Renderer(),
+    gfm: true,
+    tables: true,
+    breaks: true,
+    pedantic: false,
+    senitize: true,
+    smartLists: true,
+    smartypants: false,
+    highlight: function (code){
+        return require('highlight.js').highlightAuto(code).value;
+    }
+})
+
+
+module.exports = {
+    async list (ctx, next){
+        let { keyword, pageindex = 1, pagesize = 10}  = ctx.request.query;
+        try{
+            let reg = new RegExp(keyword,'i')
+            let data = await ctx.findPage(blogModel, {
+                $or: [
+                    {type: { $regex: reg}},
+                    {title: { $regex: reg}}
+                ]
+            }, { createTime: 0, html: 0}, {limit: pagesize * 1, skip: (pageindex-1)*pagesize})
+            ctx.send(data)
+        }catch (e){
+            console.log(e)
+            ctx.sendError(e)
+        }
+    },
+
+    async add(ctx, next){
+        let paramsData = ctx.request.body;
+        try {
+            let data = await ctx.findOne(blogModel,{title: paramsData.title})
+            if (data){
+                ctx.sendError('数据已存在，请重新添加')
+            }else{
+                paramsData.html = marked(paramsdata.html)
+                let data = await ctx.add(blogModel, paramsData)
+                ctx.send(paramsData)
+            }
+        }catch (e){
+            ctx.sendError(e)
+        }
+    }
+}
+
