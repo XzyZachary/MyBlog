@@ -81,7 +81,10 @@ module.exports = {
         } = ctx.request.query
         try {
             let reg = new RegExp(keyword, 'i')
+<<<<<<< HEAD
             //console.log(ctx);
+=======
+>>>>>>> 3827493b563d9dba60859445b39d3f62ca2a6f7e
             let data = await ctx.findPage(userModel, {
                 $or: [{
                         name: {
