@@ -12,10 +12,11 @@ module.exports = {
             let data = await ctx.findOne(userModel, {
                 useranme: useranme
             })
+            console.log(data)
             if (!data) {
                 return ctx.sendError('用户不存在')
             }
-            if (password != data.password) {
+            if (password != data.pwd) {
                 return ctx.sendError('密码错误，请重新输入')
             }
 
