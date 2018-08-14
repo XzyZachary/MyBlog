@@ -6,7 +6,7 @@ module.exports = {
     async login(ctx, next) {
         let {
             useranme,
-            pwd
+            password
         } = ctx.request.body;
         try {
             let data = await ctx.findOne(userModel, {
@@ -15,7 +15,7 @@ module.exports = {
             if (!data) {
                 return ctx.sendError('用户不存在')
             }
-            if (pwd != data.pwd) {
+            if (password != data.password) {
                 return ctx.sendError('密码错误，请重新输入')
             }
 
@@ -98,7 +98,7 @@ module.exports = {
                     }
                 ]
             }, {
-                pwd: 0
+                password: 0
             }, {
                 limit: pagesize * 1,
                 skip: (pageindex - 1) * pagesize
@@ -134,10 +134,10 @@ module.exports = {
             let data = await ctx.findOne(userModel, {
                 name: paramsData.name
             })
-            if (paramsData.old_pwd !== data.pwd) {
+            if (paramsData.old_password !== data.password) {
                 return ctx.sendError('密码不匹配')
             }
-            delete paramsData.old_pwd
+            delete paramsData.old_password
             await ctx.update(userModel, {
                 _id: paramsData._id
             }, paramsData)
