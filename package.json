@@ -22,13 +22,15 @@
     "koa-bodyparser": "^4.2.0",
     "koa-router": "^7.3.0",
     "koa-static": "^4.0.2",
+    "koa2-cors":"^2.0.6",
     "log4js": "^2.4.1",
     "marked": "^0.3.12",
     "mongoose": "^4.13.9",
     "nprogress": "^0.2.0",
     "qs": "^6.5.1",
     "vue-router": "^3.0.1",
-    "number-format.js": "^1.1.11"
+    "number-format.js": "^1.1.11",
+    "vuex": "^2.3.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.0-rc.10",

@@ -27,6 +27,7 @@ const actions = {
             return Promise.reject(-2)
         } else {
             return service.login(username, md5(password)).then(token => {
+                console.log(token)
                 commit(types.MUTATION_AUTH_UPDATE, token)
                 return Promise.resolve()
             })
