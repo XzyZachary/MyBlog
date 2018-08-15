@@ -4,6 +4,7 @@ import * as types from './constants'
 import createTimer from './plugins/timer'
 import auth from './modules/auth'
 import progress from './modules/progress'
+import d2admin from './modules/admin'
 import createLogger from 'vuex/dist/logger'
 
 Vue.use(Vuex)
@@ -36,7 +37,8 @@ const store = new Vuex.Store({
     strict : process.env.NODE_ENV !== 'production',
     modules: {
         auth,
-        progress
+        progress,
+        d2admin
     },
     state,
     mutations,

@@ -53,6 +53,7 @@ const getters = {
     },
     [types.GETTER_AUTH_ISAUTH](getters, rootgetters) {
         var _paylod = getters[types.GETTER_AUTH_PAYLOD]
+        console.log(_paylod)
         if (_paylod) {
             return _paylod.exp * 1000 > rootgetters[types.GETTER_TIMESTAMP]
         }

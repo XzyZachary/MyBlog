@@ -43,7 +43,7 @@ export default {
       // 表单
       formLogin: {
         username: "admin",
-        password: "admin",
+        password: "123456",
         code: "v9am"
       },
       // 校验
@@ -69,7 +69,7 @@ export default {
             })
             .then(() => {
               console.log('登陆成功')
-              this.$router.push({ name: "Home" });
+              this.$router.push({ name: "index" });
             })
             .catch(err => {
               console.log(err);

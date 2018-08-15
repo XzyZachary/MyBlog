@@ -12,7 +12,7 @@ module.exports = {
             let data = await ctx.findOne(userModel, {
                 useranme: useranme
             })
-            console.log(data)
+            //console.log(data)
             if (!data) {
                 return ctx.sendError('用户不存在')
             }
@@ -40,6 +40,9 @@ module.exports = {
             ctx.cookies.set(conf.auth.tokenKey, token, {
                 httpOnly: false //是否至用于http请求中获取
             })
+            ctx.set("zachary-token", token);
+            console.log(token);
+            ctx.set("Access-Control-Expose-Headers", "zachary-token");
             console.log('login success')
             ctx.send({
                 message: '登陆成功'

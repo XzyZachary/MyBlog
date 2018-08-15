@@ -1,26 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import store, * as storeTypes from '@/store'
-import Login from '@/pages/Login/index'
-
+//import Login from '@/pages/Login/index'
+// 路由数据
+import routes from './routes'
 
 Vue.use(Router)
 
 var router = new Router({
-    mode: 'history',
-    routes: [
-        {
-            // default page
-            path: '/',
-            redirect: { path: '/login' }
-        },
-        {
-            // login page
-            path: '/login',
-            name:'Login',
-            component: Login
-        }
-    ]
+    routes
 })
 
 router.beforeEach((to, from, next) => {
@@ -30,7 +18,7 @@ router.beforeEach((to, from, next) => {
         } else {
             // 没有token，去login页面
             next({
-                name: 'Login'
+                name: 'login'
             })
         }
     } else {
