@@ -7,24 +7,56 @@ const meta = {
 
 
 const frameIn = [{
-    path: '/',
-    redirect: {
-        name: 'index'
+        path: '/',
+        redirect: {
+            name: 'index'
+        },
+        component: layoutHeaderAside,
+        children: [{
+            path: 'index',
+            name: 'index',
+            meta,
+            component: () =>
+                import ('@/pages/index')
+        }]
     },
-    component: layoutHeaderAside,
-    children: [{
-        path: 'index',
-        name: 'index',
+    {
+        path: '/',
+        redirect: {
+            name: 'blog'
+        },
+        component: layoutHeaderAside,
+        children: [{
+            path: 'blog',
+            name: 'blog',
+            meta,
+            component: () =>
+                import ('@/pages/blog/index')
+        }]
+    },
+    {
+        path: '/',
+        name: 'user',
         meta,
-        component: () =>
-            import ('@/pages/index')
-    }]
-}]
+        redirect: {
+            name: 'user'
+        },
+        component: layoutHeaderAside,
+        children: [{
+            path: 'user',
+            name: 'user',
+            meta,
+            component: () =>
+                import ('@/pages/user/index')
+        }]
+    }
+]
 
 const frameOut = [{
     path: '/login',
     name: 'login',
-    component: () => import('@/pages/login')
+    component: () =>
+        import ('@/pages/login')
 }]
 
 // const errorPage = [{

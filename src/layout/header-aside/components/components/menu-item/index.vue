@@ -1,5 +1,5 @@
 <template>
-    <el-menu-item :index="menu.paht || uniqueid">
+    <el-menu-item :index="menu.path || uniqueid">
         <i :class="`fa fa-${menu.icon || 'file-o'}`"></i>
         <span slot="title">{{ menu.title || '未命名菜单'}}</span>
     </el-menu-item>
@@ -12,7 +12,7 @@ export default {
     props: {
         menu: {
             type: Object,
-            required: fasle,
+            required: false,
             default: () => {}
         }
     },

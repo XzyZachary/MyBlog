@@ -8,4 +8,4 @@ import SplitPane from 'vue-splitpane'
 Vue.component('z-layout', GridLayout)
 Vue.component('z-item', GridItem)
 Vue.component('SplitPane', SplitPane)
-Vue.component('z-cion', () => import ('../z-icon'))
+Vue.component('z-icon', () => import ('./z-icon'))

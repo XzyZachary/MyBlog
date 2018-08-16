@@ -53,6 +53,7 @@ export default {
     },
     "$route.matched": {
       handler(val) {
+       //console.log(val);
         this.active = val[val.length - 1].path;
         this.$nextTick(() => {
           if (this.menuAside.length > 0) {
@@ -71,13 +72,13 @@ export default {
   },
   methods: {
     scrollInit() {
-      this.BS = new BSscroll(this.$el, {
+      this.BS = new BScroll(this.$el, {
         mouseWheel: true
       });
     },
     scrollDestroy() {
       if (this.BS) {
-        this.BS.detroy();
+         this.BS.destroy()
       }
     }
   }

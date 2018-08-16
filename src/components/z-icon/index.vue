@@ -5,7 +5,7 @@
 <script>
 import './font-awesome-4.7.0/css/font-awesome.min.css'
 export default {
-    name: 'z-cion',
+    name: 'z-icon',
     props: {
         name: {
             type: String,

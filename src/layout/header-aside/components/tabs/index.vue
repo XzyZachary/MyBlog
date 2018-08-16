@@ -2,18 +2,18 @@
     <div class="d2-multiple-page-control-group" flex>
         <div class="d2-multiple-page-control-content" flex-box="1">
             <div class="d2-multiple-page-control-content-inner">
-                <d2-contextmenu :visibel.sync="contextmenuFlag" :x="contextmenuX" :y="contextmenuY">
+                <d2-contextmenu :visibel.sync="contextmenuFlag" :x="contentmenuX" :y="contentmenuY">
                     <d2-contextmenu-list :menulist="tagName === 'index' ? contextmenuListIndex : contextmenuList" @rowClick="contextmenuClick"
                     />
                 </d2-contextmenu>
-                <el-tabs class="d2-multiple-page-control" :value="pageCurrent" type="card" :closable="true" @tab-click="handleClick" @edit="handleTabesEdit"
+                <el-tabs class="d2-multiple-page-control" :value="pageCurrent" type="card" :closable="true" @tab-click="handleClick" @edit="handleTabsEdit"
                     @contextmenu.native="handleContextmenu">
                     <el-tab-pane v-for="(page, index) in pageOpenedList" :key="index" :label="page.meta.title || '未命名'" :name="page.name" />
                 </el-tabs>
             </div>
         </div>
         <div class="d2-multiple-page-control-btn" flex-box="0">
-            <el-dropdown split-button @click="handeControlBtnClick" @command="command => handelControlItemClick(command)">
+            <el-dropdown split-button @click="handleControlBtnClick" @command="command => handelControlItemClick(command)">
                 <z-icon name="times-circle" />
                 <el-dropdown-menu slot="dropdown">
                     <el-dropdown-item command="left">
@@ -43,7 +43,7 @@ export default {
   },
   data() {
     return {
-      contextmenuFlag: fasle,
+      contextmenuFlag: false,
       contentmenuX: 0,
       contentmenuY: 0,
       contextmenuListIndex: [
@@ -120,7 +120,7 @@ export default {
     handleControlBtnClick() {
       this.d2adminTagCloseAll(this);
     },
-    handleClick() {
+    handleClick(tab, event) {
       const page = this.pageOpenedList.find(page => page.name === tab.name);
       const { name, params, query } = page;
       if (page) {

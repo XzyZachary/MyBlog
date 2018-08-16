@@ -68,7 +68,7 @@ export default {
               password: this.formLogin.password
             })
             .then(() => {
-              console.log('登陆成功')
+              //console.log('登陆成功')
               this.$router.push({ name: "index" });
             })
             .catch(err => {

@@ -5,19 +5,23 @@ import storage from '@/utils/storage'
 import md5 from 'js-md5'
 
 const state = {
-    token: storage.read('token')
+    token: storage.read('token'),
+    name: storage.read('name')
 }
 
 const mutations = {
     [types.MUTATION_AUTH_UPDATE](state, value) {
         state.token = value
+        state.name = jwtDecode(value).name
+        storage.write('name', jwtDecode(value).name)
         storage.write('token', value)
-    }
+    },
 }
 
 const actions = {
     [types.ACTION_AUTH_LOGIN]({
-        commit}, {
+        commit
+    }, {
         username = '',
         password = ''
     }) {
@@ -27,8 +31,9 @@ const actions = {
             return Promise.reject(-2)
         } else {
             return service.login(username, md5(password)).then(token => {
-                console.log(token)
+                //console.log(token)
                 commit(types.MUTATION_AUTH_UPDATE, token)
+                //commit('d2adminUserInfoSet',token)
                 return Promise.resolve()
             })
         }
@@ -51,9 +56,9 @@ const getters = {
             return null
         }
     },
-    [types.GETTER_AUTH_ISAUTH](getters, rootgetters) {
+    [types.GETTER_AUTH_ISAUTH](state, getters, rootgetters) {
         var _paylod = getters[types.GETTER_AUTH_PAYLOD]
-        console.log(_paylod)
+        //console.log(_paylod)
         if (_paylod) {
             return _paylod.exp * 1000 > rootgetters[types.GETTER_TIMESTAMP]
         }
