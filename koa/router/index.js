@@ -14,5 +14,12 @@ export default app => {
     router.post('/admin/blog/add', app.admin.blog.add)
     router.post('/admin/blog/update', app.admin.blog.update)
 
+    router.get('/admin/roleroute/list', app.admin.roleroute.GetList)
+    router.post('/admin/roleroute/add', app.admin.roleroute.add)
+    router.post('/admin/roleroute/update', app.admin.roleroute.update)
+
+
+
+
     app.use(router.routes()).use(router.allowedMethods())
 }
