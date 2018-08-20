@@ -2,7 +2,7 @@
 
 import themeList from '@/assets/style/theme/list.js'
 import jwtDecode from 'jwt-decode'
-
+import service from '@/service/menu'
 import storage from '@/utils/storage'
 
 const pageOpenedDefault = {
@@ -15,7 +15,8 @@ const pageOpenedDefault = {
 
 const state = {
     userInfo: {
-        name: ""
+        name: "",
+        role:""
     },
     isGrayMode: false,
     pageOpenedList: [
@@ -67,7 +68,9 @@ const mutations = {
         state.menuHeader = menu
     },
     d2adminUserInfoSet(state, token) {
+        console.log(token);
         state.userInfo.name = jwtDecode(token).name
+        state.userInfo.role = jwtDecode(token).role
     },
     d2adminMenuAsideSet(state, menu) {
         state.menuAside = menu
@@ -84,8 +87,21 @@ const mutations = {
         }
     },
 }
+
+const actions = {
+    //根据用户角色获取菜单
+    GetRoleRoute({ commit, rootState }){
+        const role = rootState.auth.role;
+        return service.GetMenu(role).then(res => {
+            //console.log(turntomenu(res.data.data))
+            storage.write('menu', JSON.stringify(res.data.data.list));
+        })
+    }
+}
+
 export default {
     state,
     mutations,
-    getters
+    getters,
+    actions
 }

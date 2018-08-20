@@ -1,4 +1,4 @@
-import rolerouteModel from '../models/role_route'
+import rolerouteModel from '../models/roleroute'
 
 module.exports = {
     //获取所有的或者个别详细的
@@ -9,20 +9,21 @@ module.exports = {
             pagesize = 10
         } = ctx.request.query;
         try {
+            console.log(ctx.request.query)
+            //特殊字符转义
+            //keyword = keyword.replace(/([\^\$\(\)\*\+\?\.\\\|\[\]\{\}])/g, "\\$1");
             let reg = new RegExp(keyword, 'i')
+            console.log(reg)
             let data = await ctx.findPage(rolerouteModel, {
                 $or: [{
                         Roles: {
                             $regex: reg
                         }
-                    },
-                    {
-                        title: {
-                            $regex: reg
-                        }
                     }
                 ]
-            }, {
+            },{
+                CreateDate: 0
+            },{
                 limit: pagesize * 1,
                 skip: (pageindex - 1) * pagesize
             })

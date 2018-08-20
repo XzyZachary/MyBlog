@@ -9,6 +9,7 @@ import router from '@/router'
 import store, * as storeTypes from '@/store'
 import http from '@/http'
 import service from '@/service'
+import storage from '@/utils/storage'
 import 'element-ui/lib/theme-chalk/index.css'
 //import '@/assets/svg-icons'
 import '@/components'
@@ -59,7 +60,8 @@ new Vue({
   watch: {
     '$route.matched' () {
       //const _side = menuAside.filter(menu => menu.path === val[0].path)
-      this.$store.commit('d2adminMenuAsideSet', menuAside[0].children)
+      //this.$store.commit('d2adminMenuAsideSet', storage.read('menu').list)
+      this.$store.commit('d2adminMenuAsideSet', JSON.parse(storage.read('menu')))
     }
   },
   methods: {
@@ -85,6 +87,9 @@ new Vue({
       }
       push(frameInRoutes)
       this.$store.commit('d2adminPagePoolSet', pool)
+    },
+    getAllMenu(){
+      this.$store.dispatch("GetRoleRoute")
     }
   }
 })

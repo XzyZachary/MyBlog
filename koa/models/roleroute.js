@@ -1,6 +1,6 @@
 import db from '../mongodb'
 let RoleRouteSchema = db.Schema({
-    title: Array,
+    title: String,
     path: String,
     icon: String,
     IsParentNode: Boolean,
@@ -11,4 +11,4 @@ let RoleRouteSchema = db.Schema({
     ModifiedBy: String,
     ModifiedDate: { type: Date, default: Date.now},
 })
-export default db.model('Role_Router', RoleRouteSchema)
+export default db.model('roleroute', RoleRouteSchema)

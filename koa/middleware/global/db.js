@@ -126,7 +126,7 @@ export const findPage = async (model, conditions, fields, options = {}) => {
     } : options.sort;
 
     delete options.sort;
-
+    console.log(conditions);
     const getCount = () => {
         return new Promise((resolve, reject) => {
             model.find(conditions, fields).count({}, (err, res) => {

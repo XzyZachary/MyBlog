@@ -1,20 +1,25 @@
 import jwtDecode from 'jwt-decode'
 import * as types from '../constants'
-import service from '@/service/user'
+import service from '@/service'
 import storage from '@/utils/storage'
 import md5 from 'js-md5'
 
 const state = {
     token: storage.read('token'),
-    name: storage.read('name')
+    name: storage.read('name'),
+    role: storage.read('role')
 }
 
 const mutations = {
     [types.MUTATION_AUTH_UPDATE](state, value) {
+        //console.log(jwtDecode(value))
         state.token = value
         state.name = jwtDecode(value).name
+        state.role = jwtDecode(value).roles[0]
         storage.write('name', jwtDecode(value).name)
         storage.write('token', value)
+        storage.write('role', jwtDecode(value).roles[0])
+        //this.$store.dispatch("GetRoleRoute")
     },
 }
 
@@ -30,11 +35,16 @@ const actions = {
         } else if (!password.length) {
             return Promise.reject(-2)
         } else {
-            return service.login(username, md5(password)).then(token => {
+            return service.user.login(username, md5(password)).then(token => {
                 //console.log(token)
                 commit(types.MUTATION_AUTH_UPDATE, token)
+                return service.menu.GetMenu(jwtDecode(token).roles[0]).then(res => {
+                    //console.log(turntomenu(res.data.data))
+                    storage.write('menu', JSON.stringify(res.data.data.list));
+                    return Promise.resolve()
+                })
                 //commit('d2adminUserInfoSet',token)
-                return Promise.resolve()
+                //return Promise.resolve()
             })
         }
     },

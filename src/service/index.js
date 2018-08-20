@@ -1,8 +1,10 @@
 import user from './user'
+import menu from './menu'
 
 class Service{
     constructor() {
-        this.user = user
+        this.user = user,
+        this.menu = menu
     }
 }
 
@@ -15,5 +17,6 @@ service.install = Vue => {
 export default service
 
 export {
-    user
+    user,
+    menu
 }
