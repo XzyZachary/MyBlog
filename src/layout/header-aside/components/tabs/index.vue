@@ -71,7 +71,7 @@ export default {
       "d2adminTagCloseOther",
       "d2adminTagCloseAll"
     ]),
-    handelContextmenu(event) {
+    handleContextmenu(event) {
       let target = event.target;
 
       let flag = false;
@@ -129,7 +129,7 @@ export default {
     },
     handleTabsEdit(tagName, action) {
       if (action === "remove") {
-        this.$store.commit("d2adminTagClose", {
+        this.$store.commit("adminTagClose", {
           tagName,
           vm: this
         });

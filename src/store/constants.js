@@ -23,6 +23,8 @@ export const MUTATION_AUTH_UPDATE = "auth/UPDATE"
 export const ACTION_AUTH_LOGIN = "auth/Login"
 export const ACTION_AUTH_LOGOUT = "auth/Logout"
 export const GETTER_AUTH_ACCESSTOKEN = "auth/accessToken"
+export const GETTER_AUTH_NAME = "authname"
+export const GETTER_AUTH_ROLE = "authrole"
 export const GETTER_AUTH_PAYLOD = "auth/paylod"
 export const GETTER_AUTH_ISAUTH = "auth/isAuth"
 

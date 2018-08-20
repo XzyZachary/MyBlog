@@ -6,19 +6,13 @@ import md5 from 'js-md5'
 
 const state = {
     token: storage.read('token'),
-    name: storage.read('name'),
-    role: storage.read('role')
 }
 
 const mutations = {
     [types.MUTATION_AUTH_UPDATE](state, value) {
         //console.log(jwtDecode(value))
-        state.token = value
-        state.name = jwtDecode(value).name
-        state.role = jwtDecode(value).roles[0]
-        storage.write('name', jwtDecode(value).name)
+        state.token = value;
         storage.write('token', value)
-        storage.write('role', jwtDecode(value).roles[0])
         //this.$store.dispatch("GetRoleRoute")
     },
 }
@@ -56,6 +50,20 @@ const actions = {
 }
 
 const getters = {
+    // [types.GETTER_AUTH_ROLE](state) {
+    //     try {
+    //         return jwtDecode(state.token).roles[0]
+    //     } catch (e) {
+    //         return null
+    //     }
+    // },
+    [types.GETTER_AUTH_NAME](state) {
+        try {
+            return jwtDecode(state.token).name
+        } catch (e) {
+            return null
+        }
+    },
     [types.GETTER_AUTH_ACCESSTOKEN](state) {
         return state.token
     },

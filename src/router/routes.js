@@ -15,7 +15,7 @@ const frameIn = [{
         children: [{
             path: 'index',
             name: 'index',
-            meta,
+            meta: { ...meta, title: '首页' },
             component: () =>
                 import ('@/pages/index')
         }]
@@ -29,7 +29,7 @@ const frameIn = [{
         children: [{
             path: 'blog',
             name: 'blog',
-            meta,
+            meta: { ...meta, title: '博客' },
             component: () =>
                 import ('@/pages/blog/index')
         }]
@@ -45,7 +45,7 @@ const frameIn = [{
         children: [{
             path: 'user',
             name: 'user',
-            meta,
+            meta: { ...meta, title: '用户' },
             component: () =>
                 import ('@/pages/user/index')
         }]

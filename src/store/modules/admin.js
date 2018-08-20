@@ -4,6 +4,7 @@ import themeList from '@/assets/style/theme/list.js'
 import jwtDecode from 'jwt-decode'
 import service from '@/service/menu'
 import storage from '@/utils/storage'
+import * as types from '../constants'
 
 const pageOpenedDefault = {
     name: 'index',
@@ -86,6 +87,67 @@ const mutations = {
             })
         }
     },
+    adminPageOpenNew(state, {name,params,query}){
+        let pageOpenedList = state.pageOpenedList
+        let pageOpenedIndex = 0
+        const pageOpend = pageOpenedList.find((page,index) => {
+            const same = page.name === name
+            pageOpenedIndex = same ? index : pageOpenedIndex
+            return same
+        })
+        if(pageOpend){
+            this.commit('adminPageOpenedListUpdateItem',{index: pageOpenedIndex,params,query})
+        }else{
+            let tag = state.pagePool.find(t => t.name === name)
+            if(tag){
+                this.commit('adminTagIncreate',{tag,params,query})
+            }
+        }
+        this.commit('adminPageCurrentSet', name)
+    },
+    adminPageOpenedListUpdateItem(state, {index,params,query}){
+        let page = state.pageOpenedList[index]
+        page.params = params || page.params
+        page.query = query || page.query
+        state.pageOpenedList.splice(index, 1, page)
+    },
+    adminTagIncreate(state, {tag, params,query}){
+        let newPage = tag
+        newPage.params = params || newPage.params
+        newPage.query = query || newPage.query
+        state.pageOpenedList.push(newPage)
+    },
+    adminPageCurrentSet(state,name){
+        state.pageCurrent = name
+    },
+    adminTagClose(state, {tagName, vm}){
+        let newPage = state.pageOpenedList[0]
+        const isCurrent = state.pageCurrent === tagName
+        if (isCurrent){
+            let list  = state.pageOpenedList
+            list.map((item,key) => {
+                if(item.name === tagName){
+                    if(key < list.length -1 ){
+                        newPage = state.pageOpenedList[key+1]
+                    }else{
+                        newPage = state.pageOpenedList[key - 1]
+                    }
+                }
+            });
+        }
+
+        const index  = state.pageOpenedList.findIndex(page => page.name === tagName)
+        if(index >= 0) state.pageOpenedList.splice(index, 1)
+        if(isCurrent){
+            const {name = '', params={},query={}} = newPage
+            let routerObj = {
+                name,
+                params,
+                query
+            }
+            vm.$router.push(routerObj)
+        }
+    }
 }
 
 const actions = {
@@ -96,6 +158,28 @@ const actions = {
             //console.log(turntomenu(res.data.data))
             storage.write('menu', JSON.stringify(res.data.data.list));
         })
+    },
+    adminLogout ({ state, commit, rootState }, { vm, confirm }) {
+        function logout(){
+            localStorage.clear();
+            commit(types.MUTATION_AUTH_UPDATE, null)
+            vm.$router.push({
+                name: 'login'
+            })
+        }
+        if(confirm){
+            vm.$confirm('注销当前账户吗？','确认操作',{
+                confirmButtonText: '确定注销',
+                cancelButtonText: '放弃',
+                type: 'warning'
+            }).then(() => {
+                logout()
+            }).catch(() => {
+                vm.$message('放弃注销用户')
+            })
+        }else{
+            logout()
+        }
     }
 }
 

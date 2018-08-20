@@ -63,7 +63,6 @@ export default {
       isMenuAsideCollapse: state => state.d2admin.isMenuAsideCollapse
     }),
     ...mapGetters(["d2adminThemeActiveSetting", "d2adminKeepAliveInclude"])
-
   },
   methods: {
     ...mapMutations(["d2adminMenuAsideCollapseToggle"]),
