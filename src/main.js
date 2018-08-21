@@ -56,6 +56,7 @@ new Vue({
     this.getAllPageFromRoutes()
     // 设置顶栏菜单
     this.$store.commit('d2adminMenuHeaderSet', menuHeader)
+    this.$store.commit('adminTheme2dom')
   },
   watch: {
     '$route.matched' () {

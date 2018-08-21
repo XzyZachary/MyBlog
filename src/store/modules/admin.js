@@ -147,6 +147,34 @@ const mutations = {
             }
             vm.$router.push(routerObj)
         }
+    },
+    adminTagCloseOther(state, {pageSelect, vm} = {}){
+        const pageAim = pageSelect || state.pageCurrent
+        let currentIndex = 0
+        state.pageOpenedList.forEach((page,index) => {
+            if(page.name === pageAim) currentIndex = index
+        })
+        if(currentIndex === 0){
+            state.pageOpenedList.splice(1)
+        }else{
+            state.pageOpenedList.splice(currentIndex + 1)
+            state.pageOpenedList.splice(1, currentIndex - 1)
+        }
+        state.pageCurrent = pageAim
+        if(vm && vm.$route.name !== pageAim){
+            vm.$router.push({
+                name: pageAim
+            })
+        }
+    },
+    adminTheme2dom(state,themeName = state.themeActiveName){
+        const theme = state.themeList.find(e => e.name === themeName)
+        if(theme){
+            state.themeActiveName = themeName
+        }else{
+            state.themeActiveName = state.themeList[0].name
+        }
+        document.body.className=`theme-${state.themeActiveName}`
     }
 }
 

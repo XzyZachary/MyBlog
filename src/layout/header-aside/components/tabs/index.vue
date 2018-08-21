@@ -13,15 +13,9 @@
             </div>
         </div>
         <div class="d2-multiple-page-control-btn" flex-box="0">
-            <el-dropdown split-button @click="handleControlBtnClick" @command="command => handelControlItemClick(command)">
+            <el-dropdown split-button @click="handleControlBtnClick" @command="command => handleControlItemClick(command)">
                 <z-icon name="times-circle" />
                 <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item command="left">
-                        <z-icon name="arrow-left" class="d2-mr-10" /> 关闭左侧
-                    </el-dropdown-item>
-                    <el-dropdown-item command="right">
-                        <z-icon name="arrow-right" class="d2-mr-10" /> 关闭右侧
-                    </el-dropdown-item>
                     <el-dropdown-item command="other">
                         <z-icon name="times" class="d2-mr-10" /> 关闭其它
                     </el-dropdown-item>
@@ -68,7 +62,7 @@ export default {
     ...mapMutations([
       "d2adminTagCloseLeft",
       "d2adminTagCloseRight",
-      "d2adminTagCloseOther",
+      "adminTagCloseOther",
       "d2adminTagCloseAll"
     ]),
     handleContextmenu(event) {
@@ -107,7 +101,7 @@ export default {
           this.d2adminTagCloseRight(params);
           break;
         case "other":
-          this.d2adminTagCloseOther(params);
+          this.adminTagCloseOther(params);
           break;
         case "all":
           this.d2adminTagCloseAll(this);

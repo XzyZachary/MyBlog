@@ -1,7 +1,9 @@
 <template>
-      <div slot="footer" class="index-btn-group">
-     asdadsadsadadadadsadadadasdadsade1eqeqeq
-      </div>
+  <z-container>
+    <div slot="footer" class="index-btn-group">
+      asdadsadsadadadadsadadadasdadsade1eqeqeq
+    </div>
+  </z-container>
 </template>
 
 <style lang="scss" scoped>
