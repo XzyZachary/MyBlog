@@ -1,7 +1,7 @@
 <template>
-      <div slot="footer" class="index-btn-group">
-     asdadsadsadadadadsadadadasdadsade1eqeqeq
-      </div>
+  <z-container>
+     <z-table v-bind="blogsData"></z-table>
+  </z-container>
 </template>
 
 <style lang="scss" scoped>
