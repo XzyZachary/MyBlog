@@ -21,6 +21,10 @@ import {
 } from '@/router/routes'
 import 'flex.css'
 
+import * as filters from './utils/filter'
+Object.keys(filters).forEach(key => {
+  Vue.filter(key, filters[key])
+})
 
 Vue.config.productionTip = false
 Vue.prototype.$baseUrl = process.env.BASE_URL

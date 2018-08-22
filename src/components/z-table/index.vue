@@ -17,7 +17,7 @@
 <script>
 import mixin from "./mixin";
 import extend from "extend";
-import vTable from './table.vue'
+import vTable from "./table.vue";
 export default {
   mixins: [mixin],
   components: {
@@ -47,18 +47,19 @@ export default {
         searchKey,
         searchValue
       ) {
-        return new Promise((resolve) => {
+        return new Promise(resolve => {
           let data = [].concat(
             searchValue && searchKey
-              ? this.data.filter(
+              ? this.self_table_data.filter(
                   f =>
                     f[searchKey] &&
                     ~f[searchKey]
                       .toLowerCase()
                       .indexOf(searchValue.toLowerCase())
                 )
-              : this.data
+              : this.self_table_data
           );
+
           if (orderKey && orderType) {
             resolve(
               data.sort((a, b) => {
@@ -71,11 +72,7 @@ export default {
             resolve(data);
           }
         }).then(data => {
-          if (this.page) {
-            //console.log(this.opPageTotal)
-            this.pageTotal = this.opPageTotal;
-            return data.slice(page * size, (page + 1) * size);
-          } else return data;
+          return data;
         });
       }
     }
@@ -86,7 +83,7 @@ export default {
       pageTotal: this.opPageTotal || 0,
       orderKey: null,
       orderType: null,
-      self_table_data: []
+      self_table_data: this.data
     };
   },
   watch: {
@@ -101,6 +98,8 @@ export default {
   methods: {
     changePage(currentPage) {
       this.pageIndex = currentPage;
+      this.getBlogList();
+      this.reLoadTabelData();
     },
     reLoadTabelData(flag) {
       //console.log(this.opPageTotal)
@@ -131,6 +130,19 @@ export default {
         this.orderType = order == "descending" ? "desc" : "asc";
         this.$nextTick(() => this.reLoadTabelData(true));
       }
+    },
+    async getBlogList() {
+      try {
+        await this.$store
+          .dispatch("GetAllBlogs", {
+            pageindex: this.pageIndex,
+            pagesize: this.self_page_size
+          })
+          .then(data => {
+            this.self_table_data = data.data.data.list;
+          });
+        //this.reLoadTabelData();
+      } catch (e) {}
     }
   },
   computed: {
@@ -152,7 +164,7 @@ export default {
         return m;
       });
       bind["sort-change"] = this.changeSort;
-      this.reLoadTabelData;
+      this.reLoadTabelData();
       return bind;
     },
     self_page_size() {
@@ -165,17 +177,18 @@ export default {
       pageIndex = pageIndex <= 0 ? 0 : pageIndex;
       return pageIndex;
     },
-    self_order_key(){
-        let tableRef = this.$refs.table
-        if(this.orderKey) return this.orderKey
-        else if (tableRef && tableRef.self_sort) return tableRef.self_sort.prop
-        return (this.columns.find(f => f.sortType) || {}).sortKey
+    self_order_key() {
+      let tableRef = this.$refs.table;
+      if (this.orderKey) return this.orderKey;
+      else if (tableRef && tableRef.self_sort) return tableRef.self_sort.prop;
+      return (this.columns.find(f => f.sortType) || {}).sortKey;
     },
-    self_order_type(){
-        let tableRef = this.$refs.table
-        if(this.orderType) return this.orderType
-        else if (tableRef && tableRef.self_sort) return tableRef.self_sort.order === 'descending' ?'desc':'asc'
-        return (this.columns.find(f =>f.sortType) || {}).sortType
+    self_order_type() {
+      let tableRef = this.$refs.table;
+      if (this.orderType) return this.orderType;
+      else if (tableRef && tableRef.self_sort)
+        return tableRef.self_sort.order === "descending" ? "desc" : "asc";
+      return (this.columns.find(f => f.sortType) || {}).sortType;
     }
   }
 };

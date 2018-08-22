@@ -1,31 +1,26 @@
 <template>
-    <el-table :data="self_data" :height="height" border style="width:100%" :defaultSort="self_sort" :key="`${Object.keys(self_sort || {}).map(m => `${m}_${self_sort[m]}`).join('_')}`"
-        stripe :cellClassName="cellClassName" empty-text="No Data Available." @sort-change="sortChange" :summary-method="handlerSummaryMethod"
-        :show-summary="fixedData && fixedData.lenght>0">
-         <el-table-column v-for="(col,index) in self_columns" :key="col.key" v-bind="col">
-           <!-- <el-table-column v-if="col.label === '操作'">
-              <template slot-scope="scope">
-                <el-button size="mini" @click="handleEdit(scope.$index,scope.row)">Edit</el-button>
-                <el-button size="mini" type="danger" @click="handleDelete(scope.$index,scope.row)">Delete</el-button>
-              </template>
-           </el-table-column> -->
-            <el-table-column v-if="col._cols && col._cols.length>0 && col.label != '操作'" v-for="(cols,indexs) in col._cols" :key="cols.key" v-bind="cols">
-                <template slot-scope="scope">
-                    <vRender :row="scope.row" :column="cols" :index="indexs" :render="cols.render"></vRender>
-                </template>
+  <el-table :data="self_data" :height="height" border style="width:100%" :defaultSort="self_sort" :key="`${Object.keys(self_sort || {}).map(m => `${m}_${self_sort[m]}`).join('_')}`"
+    stripe :cellClassName="cellClassName" empty-text="No Data Available." @sort-change="sortChange" :summary-method="handlerSummaryMethod"
+    :show-summary="fixedData && fixedData.lenght>0">
+    <el-table-column v-for="(col,index) in self_columns" :key="col.key" v-bind="col">
+      <el-table-column v-if="col._cols && col._cols.length>0 && col.label != '操作'" v-for="(cols,indexs) in col._cols" :key="cols.key"
+        v-bind="cols">
+        <template slot-scope="scope">
+          <vRender :row="scope.row" :column="cols" :index="indexs" :render="cols.render"></vRender>
+        </template>
 
-            </el-table-column>
-            <template v-if="!col._cols || col._cols.length == 0" slot-scope="scope">
-                <vRender :row="scope.row" :column="col" :index="index" :render="col.render"></vRender>
-            </template>
-        </el-table-column>
-        <!--<el-table-column v-if="IsNeedHandle && self_columns">
-            <template slot-scope="scope">
-                <el-button size="mini" @click="handleEdit(scope.$index,scope.row)">Edit</el-button>
-                <el-button size="mini" type="danger" @click="handleDelete(scope.$index,scope.row)">Delete</el-button>
-            </template>
-        </el-table-column> -->
-    </el-table>
+      </el-table-column>
+      <template v-if="!col._cols || col._cols.length == 0" slot-scope="scope">
+        <vRender :row="scope.row" :column="col" :index="index" :render="col.render"></vRender>
+      </template>
+    </el-table-column>
+    <el-table-column v-if="IsNeedHandle" label="操作" header-align="center" align="center" width="250">
+      <template slot-scope="scope">
+        <el-button size="mini" @click="edit(scope)">编辑</el-button>
+        <el-button size="mini" type="danger" @click="del(scope)">删除</el-button>
+      </template>
+    </el-table-column>
+  </el-table>
 </template>
 
 <script>
@@ -35,7 +30,7 @@ export default {
   mixins: [mixin],
   props: {
     sortChange: Function,
-    IsNeedHandle:Boolean
+    IsNeedHandle: Boolean
   },
   components: {
     vRender
@@ -91,7 +86,7 @@ export default {
             sortable: m.cols ? false : m.sortable,
             sortMethod: m.sortMethod,
             sortableKey: m.sortKey,
-            align: m.align || 'center',
+            align: m.align || "center",
             headerAlign: m.headerAlign || "center",
             className: m.className,
             labelClassName: m.labelClassName,
@@ -115,7 +110,6 @@ export default {
         });
       };
       this.self_columns = colToCols(cols || this.columns || []);
-      //console.log(this.self_columns)
     },
     handlerSummaryMethod(param) {
       const { columns } = param;

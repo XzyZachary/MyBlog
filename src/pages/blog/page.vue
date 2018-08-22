@@ -37,12 +37,6 @@ export default {
         title: "类型",
         width: 120,
         sortable: true
-      },
-      {
-        key: "",
-        title: "操作",
-        width: 320,
-        sortable: false
       }
     ];
     return {
@@ -50,7 +44,7 @@ export default {
       tableData: [],
       opPageTotal:0,
       BlogTable: {
-        height: window.screen.height - 290,
+        height: window.screen.height - 234,
         page: {
           size: 10,
           index: 1
@@ -63,7 +57,7 @@ export default {
   },
   mounted() {
     this.$store.dispatch("GetAllBlogs",{pagesize :10,pageIndex: 1}).then(data => {
-      console.log(data.data.data);
+      //console.log(data.data.data);
       this.BlogTable.data = data.data.data.list
       this.opPageTotal = data.data.data.total
     });
