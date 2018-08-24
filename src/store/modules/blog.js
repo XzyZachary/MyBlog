@@ -23,6 +23,14 @@ const actions = {
             commit('BLOGLIST', data)
             return Promise.resolve(data)
         })
+    },
+    updateBlog ({commit}, info) {
+        return service.delBlog(info).then(data => {
+            return resolve(data)
+        }).catch(e => {
+            console.log(e)
+            return reject(e)
+        })
     }
 }
 const getters = {

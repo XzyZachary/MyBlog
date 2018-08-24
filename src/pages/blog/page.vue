@@ -56,7 +56,7 @@ export default {
     };
   },
   mounted() {
-    this.$store.dispatch("GetAllBlogs",{pagesize :10,pageIndex: 1}).then(data => {
+    this.$store.dispatch("GetAllBlogs").then(data => {
       //console.log(data.data.data);
       this.BlogTable.data = data.data.data.list
       this.opPageTotal = data.data.data.total

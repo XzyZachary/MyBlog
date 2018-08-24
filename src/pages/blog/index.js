@@ -1,3 +1,3 @@
-import page from './index.vue'
+import page from './pagenew.vue'
 
 export default page
