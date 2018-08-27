@@ -39,6 +39,9 @@ const getters = {
     },
     blogTotal(state){
         return state.total
+    },
+    blogTypes(state){
+        return state.blogTypes
     }
 }
 export default {

@@ -1,18 +1,27 @@
 <template>
+  <article>
     <z-container>
-        <z-table :prop_headerOptions="headerOptions" 
-        :prop_keyword="keyword" :prop_getMethod="GetAllBlogs" :prop_delMethod="delBlog"
-        :prop_list="blogList" :prop_DataTotal="blogTotal" ></z-table>
+      <z-table :prop_headerOptions="headerOptions" :prop_keyword="keyword" :prop_getMethod="GetAllBlogs" :prop_delMethod="delBlog"
+        :prop_list="blogList" :prop_DataTotal="blogTotal"></z-table>
     </z-container>
+    <EditComponent v-if="editShow" :info="blogInfo" @close="close" :dialogtitile="dialogtitile"></EditComponent>
+  </article>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import EditComponent from "./add/index";
 export default {
+  components: {
+    EditComponent
+  },
   data() {
     return {
+      editShow: false,
       GetAllBlogs: "GetAllBlogs",
       delBlog: "delBlog",
+      dialogtitile:'',
+      blogInfo: {},
       keyword: "",
       headerOptions: [
         {
@@ -71,7 +80,7 @@ export default {
           prop: "isVisible",
           hidden: false,
           headerAlign: "center",
-          align: "center",
+          align: "center"
         }
       ]
     };
@@ -80,10 +89,15 @@ export default {
     this.getList();
   },
   methods: {
+    close() {
+      console.log('123')
+      this.editShow = false;
+      this.getList();
+    },
     async getList() {
       this.loading = true;
       try {
-        await this.$store.dispatch('GetAllBlogs', {
+        await this.$store.dispatch("GetAllBlogs", {
           keyword: this.keyword,
           pageindex: this.pageindex,
           pagesize: this.pagesize
@@ -92,11 +106,16 @@ export default {
       } catch (e) {
         this.loading = false;
       }
+    },
+    editblog(scope) {
+      console.log(scope);
+      this.editShow = true;
+      scope.row.releaseTime = new Date(scope.row.releaseTime);
+      this.blogInfo = scope.row;
     }
   },
   computed: {
     ...mapGetters(["blogList", "blogTotal"])
-  },
+  }
 };
 </script>
-

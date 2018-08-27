@@ -64,7 +64,6 @@ export default {
   data() {
     return {
       keyword: this.prop_keyword,
-      editShow: false,
       loading: false,
       pageindex: 1,
       pagesize: 10,
@@ -78,10 +77,6 @@ export default {
   methods: {
     increment(index) {
       return index + 1 + (this.pageindex - 1) * this.pagesize;
-    },
-    close() {
-      this.editShow = false;
-      this.getList();
     },
     handleSizeChange(val) {
       this.pagesize = val;
@@ -130,9 +125,8 @@ export default {
         });
     },
     edit(scope) {
-      this.editShow = true;
-      scope.row.releaseTime = new Date(scope.row.releaseTime);
-      this.info = scope.row;
+       console.log(scope);
+       this.$emit('editblog',scope)
     }
   }
 };
