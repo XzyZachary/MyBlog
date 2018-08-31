@@ -74,14 +74,19 @@ module.exports = {
 
     //更新或删除博客（不做物理删除）
     async update(ctx, next) {
+        console.log("update")
+        console.log(ctx.request)
         let paramsData = ctx.request.body;
+        console.log(paramsData)
         try {
-            paramsData.html = marked(paramsData.html);
+            //paramsData.html = marked(paramsData.html);
+            console.log(paramsData.html)
             let data = await ctx.update(blogModel, {
                 _id: paramsData._id
             }, paramsData)
             ctx.send()
         } catch (e) {
+            console.log(e)
             if (e === '暂无数据') {
                 ctx.sendError(e)
             }

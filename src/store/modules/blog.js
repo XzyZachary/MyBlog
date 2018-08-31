@@ -26,10 +26,10 @@ const actions = {
     },
     updateBlog ({commit}, info) {
         return service.delBlog(info).then(data => {
-            return resolve(data)
+            return Promise.resolve(data)
         }).catch(e => {
             console.log(e)
-            return reject(e)
+            return Promise.reject(e)
         })
     }
 }

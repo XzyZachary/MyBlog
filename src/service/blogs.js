@@ -14,11 +14,11 @@ export class BlogService extends BaseService {
             timeout: 30000
         }).then(res => { return Promise.resolve(res)})
     }
-    delBlog(params){
+    delBlog(data){
         return http({
             method: 'post',
             url: '/admin/blog/update',
-            params,
+            data,
             timeout: 30000
         }).then(res => { return Promise.resolve(res)})
     }

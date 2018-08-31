@@ -109,9 +109,12 @@ export default {
       })
         .then(async () => {
           try {
-            await this.$store.dispatch(this.delMethod, scope.row._id);
-            this.list.splice(scope.$index, 1);
-          } catch (e) {}
+            scope.row.isVisible = false;
+            console.log(scope.row.isVisible);
+            await this.$store.dispatch(`${this.prop_delMethod}`, scope.row);
+          } catch (e) {
+            console.log(e)
+          }
           this.$message({
             type: "success",
             message: "删除成功"
@@ -125,7 +128,7 @@ export default {
         });
     },
     edit(scope) {
-       console.log(scope);
+       //console.log(scope);
        this.$emit('editblog',scope)
     }
   }

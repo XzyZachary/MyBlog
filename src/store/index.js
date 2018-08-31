@@ -45,8 +45,9 @@ const store = new Vuex.Store({
     state,
     mutations,
     actions,
-    getters,
-    plugins: process.env.NODE_ENV !== 'production' ? [createLogger()] : [timer]
+    getters
+    // getters,
+    // plugins: process.env.NODE_ENV !== 'production' ? [createLogger()] : [timer]
 })
 
 export default store

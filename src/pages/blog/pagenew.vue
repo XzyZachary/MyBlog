@@ -1,10 +1,10 @@
 <template>
   <article>
-    <z-container>
-      <z-table :prop_headerOptions="headerOptions" :prop_keyword="keyword" :prop_getMethod="GetAllBlogs" :prop_delMethod="delBlog"
-        :prop_list="blogList" :prop_DataTotal="blogTotal"></z-table>
-    </z-container>
     <EditComponent v-if="editShow" :info="blogInfo" @close="close" :dialogtitile="dialogtitile"></EditComponent>
+    <z-container>
+      <z-table :prop_headerOptions="headerOptions" :prop_keyword="keyword" :prop_getMethod="GetAllBlogs" :prop_delMethod="updateBlog"
+        :prop_list="blogList" :prop_DataTotal="blogTotal" @editblog="editblog"></z-table>
+    </z-container>
   </article>
 </template>
 
@@ -19,7 +19,7 @@ export default {
     return {
       editShow: false,
       GetAllBlogs: "GetAllBlogs",
-      delBlog: "delBlog",
+      updateBlog: "updateBlog",
       dialogtitile:'',
       blogInfo: {},
       keyword: "",
@@ -108,10 +108,10 @@ export default {
       }
     },
     editblog(scope) {
-      console.log(scope);
+      //console.log(scope);
       this.editShow = true;
-      scope.row.releaseTime = new Date(scope.row.releaseTime);
-      this.blogInfo = scope.row;
+      //scope.row.releaseTime = new Date(scope.row.releaseTime);
+      this.blogInfo = Object.assign(scope.row);
     }
   },
   computed: {
@@ -119,3 +119,9 @@ export default {
   }
 };
 </script>
+
+<style lang="less">
+.el-dialog__wrapper{
+  top:auto !important;
+}
+</style>
