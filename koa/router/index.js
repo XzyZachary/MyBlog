@@ -13,6 +13,7 @@ export default app => {
     router.get('/admin/blog/list', app.admin.blog.list)
     router.post('/admin/blog/add', app.admin.blog.add)
     router.post('/admin/blog/update', app.admin.blog.update)
+    router.post('/admin/blog/deletebyisvisiable', app.admin.blog.deletebyisvisiable)
 
     router.get('/admin/roleroute/list', app.admin.roleroute.GetList)
     router.post('/admin/roleroute/add', app.admin.roleroute.add)

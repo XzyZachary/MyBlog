@@ -13,8 +13,7 @@
                 <el-input type="textarea" v-model="BlogInfo.desc"></el-input>
             </el-form-item>
             <el-form-item label="文章内容" prop="markdown">
-                <!-- <Markdown v-model="info.markdown"></Markdown> -->
-                <el-input type="textarea" v-model="BlogInfo.markdown"></el-input>
+                <!-- <el-input type="textarea" v-model="BlogInfo.markdown"></el-input> -->
             </el-form-item>
             <el-form-item label="级别" prop="album">
                  <el-select v-model="BlogInfo.level" placeholder="请选择级别" class="block">
@@ -105,6 +104,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
+
 .edit-warpper{
     .block{
         width: 100%;

@@ -3,7 +3,7 @@
     <EditComponent v-if="editShow" :info="blogInfo" @close="close" :dialogtitile="dialogtitile"></EditComponent>
     <z-container>
       <z-table :prop_headerOptions="headerOptions" :prop_keyword="keyword" :prop_getMethod="GetAllBlogs" :prop_delMethod="updateBlog"
-        :prop_list="blogList" :prop_DataTotal="blogTotal" @editblog="editblog"></z-table>
+        :prop_list="blogList" :prop_DataTotal="blogTotal" @editblog="editblog" @getList="getList" ref="pageinfo"></z-table>
     </z-container>
   </article>
 </template>
@@ -19,7 +19,7 @@ export default {
     return {
       editShow: false,
       GetAllBlogs: "GetAllBlogs",
-      updateBlog: "updateBlog",
+      updateBlog: "deletebyisvisiable",
       dialogtitile:'',
       blogInfo: {},
       keyword: "",
@@ -86,21 +86,21 @@ export default {
     };
   },
   created() {
-    this.getList();
+    this.getList(10,1);
   },
   methods: {
     close() {
       console.log('123')
       this.editShow = false;
-      this.getList();
+      this.getList(this.$refs.pageinfo.pagesize,this.$refs.pageinfo.pageindex);
     },
-    async getList() {
+    async getList(pagesize,pageindex) {
       this.loading = true;
       try {
         await this.$store.dispatch("GetAllBlogs", {
           keyword: this.keyword,
-          pageindex: this.pageindex,
-          pagesize: this.pagesize
+          pageindex: pageindex,
+          pagesize: pagesize
         });
         this.loading = false;
       } catch (e) {
@@ -121,7 +121,5 @@ export default {
 </script>
 
 <style lang="less">
-.el-dialog__wrapper{
-  top:auto !important;
-}
+
 </style>

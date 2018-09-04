@@ -91,5 +91,19 @@ module.exports = {
                 ctx.sendError(e)
             }
         }
+    },
+    async deletebyisvisiable(ctx, next){
+        let paramsData = ctx.request.body
+        var isVisible = false
+        try{
+            let data = await ctx.update(blogModel,{
+                _id: paramsData
+            },{isVisible})
+            ctx.send()
+        }catch(e){
+            if(e === "暂无数据"){
+                ctx.sendError(e)
+            }
+        }
     }
 }

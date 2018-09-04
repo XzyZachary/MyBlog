@@ -31,6 +31,14 @@ const actions = {
             console.log(e)
             return Promise.reject(e)
         })
+    },
+    deletebyisvisiable({commit}, info) {
+        return service.deletebyisvisiable(info).then(data => {
+            return Promise.resolve(data)
+        }).catch(e => {
+            console.log(e)
+            return Promise.reject(e)
+        })
     }
 }
 const getters = {

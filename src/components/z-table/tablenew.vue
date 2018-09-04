@@ -109,9 +109,8 @@ export default {
       })
         .then(async () => {
           try {
-            scope.row.isVisible = false;
-            console.log(scope.row.isVisible);
-            await this.$store.dispatch(`${this.prop_delMethod}`, scope.row);
+            await this.$store.dispatch(`${this.prop_delMethod}`, scope.row._id);
+            this.$emit('getList',this.pagesize,this.pageindex)
           } catch (e) {
             console.log(e)
           }

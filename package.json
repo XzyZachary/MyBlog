@@ -61,7 +61,10 @@
     "babel-preset-stage-2": "^6.24.1",
     "babel-register": "^6.26.0",
     "less": "^2.7.3",
-    "less-loader": "^4.0.5"
+    "less-loader": "^4.0.5",
+    "lrz": "^4.9.40",
+    "css-loader": "^0.28.7",
+    "html-loader": "^0.5.1"
     
   },
   "eslintConfig": {

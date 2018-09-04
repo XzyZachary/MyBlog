@@ -22,6 +22,14 @@ export class BlogService extends BaseService {
             timeout: 30000
         }).then(res => { return Promise.resolve(res)})
     }
+    deletebyisvisiable(data){
+        return http({
+            method: 'post',
+            url: '/admin/blog/deletebyisvisiable',
+            data:{_id: data},
+            timeout: 30000
+        }).then(res => { return Promise.resolve(res)})
+    }
 }
 
 var service = new BlogService()
